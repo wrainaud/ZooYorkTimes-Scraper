@@ -3,7 +3,7 @@ A `NodeJS`, `MongoDB`, `Express`, and `ReactJS` application where users can quer
 
 **Live Demo**: https://zooyorktimes-scraper.herokuapp.com/
 
-<img src="assets/images/screenshot.png" alt="ZooYorkTimes-Scraper Screenshot" align="center" />
+<img src="images/screenshot.png" alt="ZooYorkTimes-Scraper Screenshot" align="center" />
 
 Click on the headlines to be re-directed to the full New York Times articles.
 
