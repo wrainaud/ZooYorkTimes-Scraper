@@ -89,7 +89,7 @@ class Main extends Component {
                 placeholder="End Date (Optional - in YYYYMMDD)"
               />
               <FormBtn disabled={!this.state.queryTerm} onClick={this.handleFormSubmit}>
-                Submit Search
+                Search
               </FormBtn>
             </form>
           </Col>
