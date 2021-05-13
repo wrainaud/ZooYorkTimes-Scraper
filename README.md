@@ -31,7 +31,25 @@ To get a New York Times API Key, visit [this link](https://developer.nytimes.com
   yarn start
 ```
 
-**Note : Please make sure your MongoDB is running.** For MongoDB installation guide see [this](https://docs.mongodb.org/v3.0/installation/). Also `npm3` is required to install dependencies properly.
+## Quickstop
+
+```
+  ^C
+  ^C
+```
+
+**Note : Please make sure your MongoDB is running.** For MongoDB installation guide see [this](https://docs.mongodb.org/v3.0/installation/). 
+Run the following command in Terminal to start MongoDB after installation
+```
+  brew services start mongodb-community@4.4
+```
+
+Run the following command in Terminal to stop MongoDB
+```
+  brew services start mongodb-community@4.4
+```
+
+Also `npm3` is required to install dependencies properly.
 
 Support
 -------
@@ -48,7 +66,7 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2017-2018 William J. Rainaud
+Copyright (c) 2017-2021 William J. Rainaud
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
