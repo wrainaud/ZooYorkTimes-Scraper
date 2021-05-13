@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const APIKEY = 'f319ceefdd1248bdab586b88e6cd0075';
+const APIKEY = 'API KEY GOES HERE';
 
 const queryUrlBase = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=' + APIKEY + '&q=';
 
