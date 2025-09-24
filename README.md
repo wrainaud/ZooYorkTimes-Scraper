@@ -29,6 +29,7 @@ To get a New York Times API Key, visit [this link](https://developer.nytimes.com
   yarn install
   cd ..
   yarn start
+  # API server will listen on http://localhost:3002 by default
 ```
 
 ## Quickstop
@@ -46,10 +47,18 @@ Run the following command in Terminal to start MongoDB after installation
 
 Run the following command in Terminal to stop MongoDB
 ```
-  brew services start mongodb-community@4.4
+  brew services stop mongodb-community@4.4
 ```
 
 Also `npm3` is required to install dependencies properly.
+
+Troubleshooting
+---------------
+- Mongo connection error ECONNREFUSED: Make sure MongoDB is running (see commands above). By default the app connects to mongodb://127.0.0.1:27017/nytreact. You can override this via the MONGODB_URI environment variable.
+- API returns 503 Database unavailable: This means MongoDB is not connected. Start Mongo or set MONGODB_URI to a reachable instance; the API will serve static assets and other routes meanwhile.
+- Client error "No such module: http_parser": Modern Node versions (>=20) removed the legacy `http_parser` native binding required by very old webpack-dev-server versions used by CRA 1.x. To keep dev startup working on modern Node, this project’s start script now builds the React app (npm run build) and serves static assets from Express instead of running the legacy dev server.
+- Something is already running on port 3000: The React development server defaults to port 3000. Stop any process using that port or set a different port before starting the client, e.g. PORT=3002 yarn start. The provided start script defaults the client to 3002 if PORT is not set.
+- Mongoose module errors like "Cannot find module './types/embedded'" or deprecation warnings for `open()` usually indicate mixed or stale installs. Fix by removing top-level node_modules and client/node_modules, then reinstall: `rm -rf node_modules client/node_modules && yarn install && (cd client && yarn install)`.
 
 Support
 -------

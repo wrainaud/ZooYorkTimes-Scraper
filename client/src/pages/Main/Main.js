@@ -11,8 +11,18 @@ class Main extends Component {
     articles: [],
     queryTerm: '',
     beginDate: '',
-    endDate: ''
+    endDate: '',
+    dbAvailable: null
   };
+
+  componentDidMount() {
+    API.getHealth()
+      .then(res => {
+        const ok = res && res.data && res.data.dbConnected;
+        this.setState({ dbAvailable: !!ok });
+      })
+      .catch(() => this.setState({ dbAvailable: false }));
+  }
 
   getArticles = () => {
     let query = `${this.state.queryTerm}`;
@@ -43,6 +53,9 @@ class Main extends Component {
         console.log('hey it saved');
       })
       .catch(err => {
+        if (err && err.response && err.response.status === 503) {
+          alert('Database unavailable: Please start MongoDB or configure MONGODB_URI, then try saving again.');
+        }
         console.log(err);
       })
   }
@@ -97,6 +110,11 @@ class Main extends Component {
             <Jumbotron>
               <h1>Article Results</h1>
             </Jumbotron>
+            {this.state.dbAvailable === false && (
+              <div className="alert alert-warning" role="alert">
+                Database is currently unavailable. You can search articles, but saving is disabled until the database is connected.
+              </div>
+            )}
             {this.state.articles.length ? (
               <List>
                 {this.state.articles.map(article => (
@@ -106,11 +124,11 @@ class Main extends Component {
                     </a>
                     <br/>
                     <span>Published on {article.pub_date}</span>
-                    <button className="btn btn-primary" style={{float: "right"}} onClick={() => this.saveArticle({
+                    <button className="btn btn-primary" style={{float: "right"}} disabled={this.state.dbAvailable===false} title={this.state.dbAvailable===false ? 'Database unavailable' : 'Save this article'} onClick={() => this.saveArticle({
                       title: article.headline.main,
                       url: article.web_url, 
                       date: article.pub_date
-                    })}> Save Article </button> 
+                    })}> {this.state.dbAvailable===false ? 'Save Unavailable' : 'Save Article'} </button> 
                   </ListItem>
                 ))}
               </List>

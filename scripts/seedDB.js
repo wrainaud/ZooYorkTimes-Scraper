@@ -4,12 +4,13 @@ mongoose.Promise = global.Promise;
 
 // This file empties the Books collection and inserts the books below
 
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist",
-  {
-    useMongoClient: true
-  }
-);
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/nytreact";
+
+mongoose.connection.on("error", err => {
+  console.error("MongoDB connection error (seed):", err && err.message ? err.message : err);
+});
+
+mongoose.connect(MONGODB_URI);
 
 const bookSeed = [
   {
