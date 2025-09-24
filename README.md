@@ -15,9 +15,16 @@ On the frontend, the app uses `ReactJS` for rendering components, `axios` for in
 In order to transpile the JSX code, `webpack` and `babel` were utilized. All of the JSX  code in the `/app` folder was transpiled into the `bundle.js` file located in the `/public` folder.
 
 ## New York Times API
-Prior to starting this app and getting an `unnecessary` error message, you'll probably want to swap out the API Key provided in the `client/src/utils/API.js` file. 
+To use the app, set your NYT Article Search API key in an environment file instead of editing source code.
 
-To get a New York Times API Key, visit [this link](https://developer.nytimes.com/signup).
+1. Get an API key: https://developer.nytimes.com/signup
+2. Create a file at `client/.env` with the following content:
+
+```
+REACT_APP_NYT_API_KEY=YOUR_NYT_API_KEY_HERE
+```
+
+3. Start the app (`yarn start`). The client build will read the env var at build time. If you change the key, rebuild the client.
 
 ## Quickstart
 
@@ -39,15 +46,18 @@ To get a New York Times API Key, visit [this link](https://developer.nytimes.com
   ^C
 ```
 
-**Note : Please make sure your MongoDB is running.** For MongoDB installation guide see [this](https://docs.mongodb.org/v3.0/installation/). 
+**Note : Please make sure your MongoDB is running.** For MongoDB installation guide see [this](https://www.mongodb.com/docs/manual/installation/).
+
+Tested with MongoDB 5.0–7.0. If you're on macOS with Homebrew, you can use:
+
 Run the following command in Terminal to start MongoDB after installation
 ```
-  brew services start mongodb-community@4.4
+  brew services start mongodb-community@7.0
 ```
 
 Run the following command in Terminal to stop MongoDB
 ```
-  brew services stop mongodb-community@4.4
+  brew services stop mongodb-community@7.0
 ```
 
 Also `npm3` is required to install dependencies properly.
@@ -73,12 +83,13 @@ Please contribute using [Github Flow](https://guides.github.com/introduction/flo
 License
 -------
 
-The MIT License (MIT)
+Do What the Fuck You Want to Public License (WTFPL) — Version 2, December 2004
 
-Copyright (c) 2017-2021 William J. Rainaud
+Copyright (C) 2017-2025 William J. Rainaud
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Everyone is permitted to copy and distribute verbatim or modified copies of this license document, and changing it is allowed as long as the name is changed.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+0. You just DO WHAT THE FUCK YOU WANT TO.
