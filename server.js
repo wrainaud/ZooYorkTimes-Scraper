@@ -2,6 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3002;
 
@@ -13,8 +16,33 @@ process.on("uncaughtException", (err) => {
   console.error("Uncaught Exception:", err && err.stack ? err.stack : err);
 });
 
+// Security middleware
+app.disable("x-powered-by");
+app.use(helmet({
+  contentSecurityPolicy: false // leave disabled unless CSP is configured for client build
+}));
+
+// CORS: allow only configured origins (comma-separated)
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "").split(/[,\s]+/).filter(Boolean);
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.length === 0) return callback(null, false); // no CORS by default
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(null, false);
+  },
+  credentials: false
+}));
+
+// Body parsers
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "200kb" }));
+
+// Basic rate limiting for API endpoints
+const apiLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 300 });
+app.use("/api", apiLimiter);
+
+// Block source map files from being served to avoid leaking source and secrets
+app.get(/\.map$/i, (req, res) => res.status(403).send("Forbidden"));
 
 app.use(express.static("client/build"));
 
