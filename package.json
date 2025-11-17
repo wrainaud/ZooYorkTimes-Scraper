@@ -13,6 +13,7 @@
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
     "seed": "node scripts/seedDB.js",
+    "deps:report": "node scripts/deps-report.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Created by William Rainaud - email: wrainaud@outlook.com - web: http://wrainaud.com",
