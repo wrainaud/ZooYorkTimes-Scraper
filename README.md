@@ -83,13 +83,6 @@ Please contribute using [Github Flow](https://guides.github.com/introduction/flo
 License
 -------
 
-Do What the Fuck You Want to Public License (WTFPL) — Version 2, December 2004
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). See the LICENSE file for the full license text.
 
-Copyright (C) 2017-2025 William J. Rainaud
-
-Everyone is permitted to copy and distribute verbatim or modified copies of this license document, and changing it is allowed as long as the name is changed.
-
-DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-
-0. You just DO WHAT THE FUCK YOU WANT TO.
+Copyright (C) 2017–2025 William J. Rainaud and contributors.
