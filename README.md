@@ -83,6 +83,6 @@ Please contribute using [Github Flow](https://guides.github.com/introduction/flo
 License
 -------
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the WTFPL (Do What the Fuck You Want To Public License), Version 2. See the LICENSE file for details.
 
 Copyright (c) 2017–2025 William J. Rainaud.
