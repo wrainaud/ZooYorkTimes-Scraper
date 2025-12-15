@@ -10,7 +10,24 @@ module.exports = {
   findAll: function(req, res) {
     try {
       const coll = getCollection();
-      const cursor = coll.find(req.query || {}).sort({ date: -1 });
+      // Whitelist-based filter to avoid NoSQL operator injection via req.query
+      const filter = {};
+      if (req && req.query) {
+        const { title, url, date } = req.query;
+        if (typeof title === 'string' && title.trim()) filter.title = title.trim();
+        if (typeof url === 'string' && url.trim()) filter.url = url.trim();
+        if (date) {
+          const ts = Date.parse(date);
+          if (!Number.isNaN(ts)) {
+            // Example: filter by exact date (day). For more complex ranges, implement safely server-side.
+            const d = new Date(ts);
+            const start = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            const end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+            filter.date = { $gte: start, $lt: end };
+          }
+        }
+      }
+      const cursor = coll.find(filter).sort({ date: -1 });
       cursor.toArray((err, docs) => {
         if (err) return res.status(500).json({ error: 'Failed to load saved articles', details: err.message || err });
         return res.json(docs);
