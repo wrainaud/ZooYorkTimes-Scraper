@@ -6,7 +6,7 @@ The **ZooYorkTimes Scraper** is a full-stack MERN application that allows users 
 
 **Tech Stack**: MongoDB + Express.js + React + Node.js
 **Live Demo**: https://zooyorktimes-scraper.herokuapp.com/
-**License**: MIT
+**License**: WTFPL
 
 ## Architecture
 
@@ -176,4 +176,4 @@ yarn start
 - Follow React component composition patterns
 
 ## License
-MIT License
+WTFPL
