@@ -83,6 +83,6 @@ Please contribute using [Github Flow](https://guides.github.com/introduction/flo
 License
 -------
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). See the LICENSE file for details.
 
 Copyright (c) 2017–2025 William J. Rainaud.
