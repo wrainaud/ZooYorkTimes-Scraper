@@ -8,13 +8,6 @@ services:
       - key: NODE_VERSION
         value: 20
       - key: MONGODB_URI
-        fromDatabase:
-          name: zooyorktimes-db
-          property: connectionString
+        sync: false
       - key: REACT_APP_NYT_API_KEY
         sync: false
-
-databases:
-  - name: zooyorktimes-db
-    plan: free
-    type: mongodb

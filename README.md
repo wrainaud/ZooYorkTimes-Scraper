@@ -74,9 +74,10 @@ This app is configured for easy deployment on **Render**.
    - **Runtime**: Node
    - **Build Command**: `npm install && npm run build`
    - **Start Command**: `npm start`
-4. In the Render dashboard, go to **Environment** and add:
+4. In the Render dashboard, go to the **Environment** tab and add:
    - `REACT_APP_NYT_API_KEY`: Your New York Times API Key.
-5. Render also provides a free MongoDB instance if you use the blueprint, or you can use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and set the `MONGODB_URI` environment variable.
+   - `MONGODB_URI`: Your MongoDB connection string (e.g., from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)).
+5. Your app will be built and deployed at a custom `onrender.com` URL.
 
 ## Quickstop
 
