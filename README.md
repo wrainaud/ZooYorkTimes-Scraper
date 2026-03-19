@@ -1,7 +1,7 @@
 # ZooYorkTimes Scraper :newspaper::apple::statue_of_liberty:
 A `NodeJS`, `MongoDB`, `Express`, and `ReactJS` application where users can query, display, and save articles from the [New York Times Article Search API](http://developer.nytimes.com/). Users can remove saved articles as well.
 
-**Live Demo**: [Coming soon on Render]
+**Live Demo**: [Coming soon on Replit]
 
 <img src="images/screenshot.png" alt="ZooYorkTimes-Scraper Screenshot" align="center" />
 
@@ -66,18 +66,15 @@ REACT_APP_NYT_API_KEY=YOUR_NYT_API_KEY_HERE
 
 ## Deployment
 
-This app is configured for easy deployment on **Render**.
+This app is configured for easy deployment on **Replit**.
 
-1. Create a free account on [Render](https://render.com/).
-2. Create a new **Web Service** and connect your GitHub repository.
-3. Render will automatically detect the `render.yaml` file and configure the service:
-   - **Runtime**: Node
-   - **Build Command**: `npm install && npm run build`
-   - **Start Command**: `npm start`
-4. In the Render dashboard, go to the **Environment** tab and add:
+1. Create a free account on [Replit](https://replit.com/).
+2. Create a new Repl and import this GitHub repository.
+3. Replit will detect the configuration or you can set the Run button to `npm run build && npm start`.
+4. In the Replit **Secrets** (Environment Variables) tab, add:
    - `REACT_APP_NYT_API_KEY`: Your New York Times API Key.
    - `MONGODB_URI`: Your MongoDB connection string (e.g., from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)).
-5. Your app will be built and deployed at a custom `onrender.com` URL.
+5. Click the **Run** button to build and start your app. It will be available at a custom `.replit.app` URL.
 
 ## Quickstop
 
