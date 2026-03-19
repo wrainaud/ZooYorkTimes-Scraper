@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -26,7 +27,7 @@ app.use(helmet({
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || "").split(/[,\s]+/).filter(Boolean);
 app.use(cors({
   origin: function(origin, callback) {
-    if (!origin || allowedOrigins.length === 0) return callback(null, false); // no CORS by default
+    if (!origin || allowedOrigins.length === 0) return callback(null, true); // allow all in development
     if (allowedOrigins.includes(origin)) return callback(null, true);
     return callback(null, false);
   },
@@ -86,45 +87,11 @@ mongoose.connection.once("open", () => {
   console.log("✅ MongoDB connected");
 });
 
-// Attempt a lightweight TCP reachability check for local Mongo before connecting
-const url = require("url");
-const net = require("net");
-let shouldConnectToMongo = true;
-try {
-  const parsed = url.parse(MONGODB_URI);
-  const host = (parsed.hostname || "").toLowerCase();
-  const port = Number(parsed.port || 27017);
-  const isLocal = host === "localhost" || host === "127.0.0.1";
-
-  if (isLocal) {
-    // For local dev, check if the port is accepting connections to avoid driver-level crashes
-    const socket = new net.Socket();
-    socket.setTimeout(300);
-    shouldConnectToMongo = false;
-    socket
-      .once("connect", () => {
-        shouldConnectToMongo = true;
-        socket.destroy();
-        startMongoose();
-      })
-      .once("timeout", () => {
-        console.warn(`MongoDB not reachable at ${host}:${port}. Skipping DB connect; API will return 503 for DB routes.`);
-        socket.destroy();
-      })
-      .once("error", () => {
-        console.warn(`MongoDB not reachable at ${host}:${port}. Skipping DB connect; API will return 503 for DB routes.`);
-      })
-      .connect(port, host);
-  } else {
-    // Remote URI: try connecting immediately; network may be available
-    startMongoose();
-  }
-} catch (e) {
-  console.warn("Could not pre-check MongoDB reachability. Proceeding without DB connection:", e && e.message ? e.message : e);
-}
+// Attempt a connection to MongoDB
+startMongoose();
 
 function startMongoose() {
-  // Initiate connection (Mongoose 7 returns a promise). Catch to avoid unhandled rejections.
+  // Initiate connection. Catch to avoid unhandled rejections.
   mongoose
     .connect(MONGODB_URI)
     .catch(err => {
