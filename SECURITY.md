@@ -50,7 +50,7 @@ Environment Variables
 - ALLOWED_ORIGINS: comma-separated list of origins allowed for CORS. Example:
   ALLOWED_ORIGINS="https://your-frontend.example.com"
 - MONGODB_URI: Mongo connection string.
-- PORT: server port (default 3002).
+- PORT: server port (default 3003).
 
 Change Log
 - 2025-10-28: Applied code fixes and added middleware; updated package.json; added this SECURITY.md.

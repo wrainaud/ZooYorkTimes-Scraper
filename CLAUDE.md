@@ -12,7 +12,7 @@ The **ZooYorkTimes Scraper** is a full-stack MERN application that allows users 
 
 ### Monorepo Structure
 ```
-├── server.js                 # Express server (port 3002)
+├── server.js                 # Express server (port 3003)
 ├── package.json              # Backend dependencies
 ├── controllers/              # Business logic
 ├── models/                   # MongoDB schemas
@@ -92,8 +92,8 @@ yarn start
 ```
 
 **Access Points**:
-- Frontend: http://localhost:3002 (React build served by Express)
-- Backend API: http://localhost:3002/api/
+- Frontend: http://localhost:3003 (React build served by Express)
+- Backend API: http://localhost:3003/api/
 - Database: mongodb://127.0.0.1:27017/nytreact
 
 ## API Endpoints
@@ -155,7 +155,7 @@ yarn start
 |-------|----------|
 | MongoDB ECONNREFUSED | Start MongoDB: `brew services start mongodb-community@7.0` |
 | API 503 Database unavailable | Check MongoDB connection and `MONGODB_URI` |
-| Port 3000 in use | Express defaults to 3002; set `PORT` env var |
+| Port 3000 in use | Express defaults to 3003; set `PORT` env var |
 | Module errors on modern Node | Remove `node_modules`, reinstall dependencies |
 
 ## Testing Strategy

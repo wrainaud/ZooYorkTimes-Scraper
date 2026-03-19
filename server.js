@@ -6,7 +6,7 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require("cors");
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3003;
 
 // Global safeguards to prevent hard crashes on unexpected async errors
 process.on("unhandledRejection", (reason) => {
