@@ -10,8 +10,9 @@
   "scripts": {
     "server": "node server.js",
     "client": "node scripts/start-client.js",
-    "start": "concurrently \"nodemon server.js\" \"npm run client\"",
-    "build": "node scripts/build.js",
+    "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "start": "node server.js",
+    "build": "cd client && npm install && npm run build",
     "seed": "node scripts/seedDB.js",
     "deps:report": "node scripts/deps-report.js",
     "test": "echo \"Error: no test specified\" && exit 1"

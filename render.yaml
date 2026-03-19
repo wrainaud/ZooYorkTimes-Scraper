@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: zooyorktimes-scraper
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: MONGODB_URI
+        fromDatabase:
+          name: zooyorktimes-db
+          property: connectionString
+      - key: REACT_APP_NYT_API_KEY
+        sync: false
+
+databases:
+  - name: zooyorktimes-db
+    plan: free
+    type: mongodb
