@@ -32,6 +32,8 @@ The **ZooYorkTimes Scraper** is a full-stack MERN application that allows users 
 - **API Routes**: RESTful endpoints under `/api/`
 - **Static Serving**: React build from `client/build/`
 - **Health Checks**: Database connectivity monitoring
+- **Frontend Port**: Defaults to 3004 (dev server)
+- **Backend Port**: Defaults to 3003
 
 ### Frontend (React SPA)
 - **Entry Point**: [`client/src/index.js`](fleet-file://b1l8lgfucek9iv3u4hlc/Users/wrainaud/air/ZooYorkTimes-Scraper/client/src/index.js?type=file&root=%252F)
@@ -76,9 +78,10 @@ cd client && yarn install && cd ..
 ```
 
 ### Environment Configuration
-Create [`client/.env`](fleet-file://b1l8lgfucek9iv3u4hlc/Users/wrainaud/air/ZooYorkTimes-Scraper/client/.env?type=file&root=%252F):
+Set the following environment variable in your terminal or backend `.env` file:
 ```
-REACT_APP_NYT_API_KEY=your_nyt_api_key_here
+NYT_API_KEY=your_nyt_api_key_here
+NYT_SECRET_KEY=your_nyt_secret_key_here (optional)
 ```
 
 ### Running the Application
@@ -92,7 +95,7 @@ yarn start
 ```
 
 **Access Points**:
-- Frontend: http://localhost:3003 (React build served by Express)
+- Frontend: http://localhost:3004 (React Dev Server) or http://localhost:3003 (Express)
 - Backend API: http://localhost:3003/api/
 - Database: mongodb://127.0.0.1:27017/nytreact
 
@@ -107,8 +110,9 @@ yarn start
 - `GET /api/health` - Database connectivity status
 
 ### New York Times Integration
-- Frontend calls NYT Article Search API directly from browser
-- API key required in `client/.env`
+- Frontend calls the backend proxy `/api/saved/search`
+- Backend performs the actual NYT Article Search API call
+- `NYT_API_KEY` environment variable required on the server
 
 ## Database Schema
 
@@ -155,7 +159,7 @@ yarn start
 |-------|----------|
 | MongoDB ECONNREFUSED | Start MongoDB: `brew services start mongodb-community@7.0` |
 | API 503 Database unavailable | Check MongoDB connection and `MONGODB_URI` |
-| Port 3000 in use | Express defaults to 3003; set `PORT` env var |
+| Port 3000 in use | Express defaults to 3003; React defaults to 3004 |
 | Module errors on modern Node | Remove `node_modules`, reinstall dependencies |
 
 ## Testing Strategy

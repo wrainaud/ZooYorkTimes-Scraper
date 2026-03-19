@@ -9,6 +9,7 @@ module.exports = {
   getAuthorInfo: function(req, res) {
     const { author } = req.query;
     const apiKey = req.query['api-key'] || process.env.NYT_API_KEY;
+    const secretKey = process.env.NYT_SECRET_KEY;
 
     if (!author) {
       return res.status(400).json({ error: 'Author name is required' });
@@ -18,12 +19,18 @@ module.exports = {
       return res.status(400).json({ error: 'NYT API key is required. Provide it via api-key query param or NYT_API_KEY environment variable' });
     }
 
+    const headers = {};
+    if (secretKey) {
+      headers['X-NYT-Secret'] = secretKey;
+    }
+
     // Search for articles by the specified author
     axios.get(NYT_API_BASE_URL, {
       params: {
         'fq': `byline:("${author}")`,
         'api-key': apiKey
-      }
+      },
+      headers
     })
       .then(response => {
         const articles = response.data.response.docs;

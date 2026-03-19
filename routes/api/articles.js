@@ -7,6 +7,11 @@ router
   .get(articlesController.findAll)
   .post(articlesController.create);
 
+// Matches with "/api/saved/search"
+router
+  .route('/search')
+  .get(articlesController.nytSearch);
+
 // Matches with "/api/saved/report"
 router
   .route('/report')

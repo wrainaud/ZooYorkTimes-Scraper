@@ -43,16 +43,16 @@ Returns a JSON object with the following structure:
 ```
 
 ## New York Times API
-To use the app, set your NYT Article Search API key in an environment file instead of editing source code.
+To use the app, set your NYT Article Search API key in an environment variable on the backend.
 
 1. Get an API key: https://developer.nytimes.com/signup
-2. Create a file at `client/.env` with the following content:
+2. Set the `NYT_API_KEY` environment variable. You can do this by setting it in your terminal or adding it to your system's environment variables.
 
-```
-REACT_APP_NYT_API_KEY=YOUR_NYT_API_KEY_HERE
-```
+For Replit, add it in the **Secrets** tab:
+- `NYT_API_KEY`: Your New York Times API Key.
+- `NYT_SECRET_KEY`: Your New York Times Secret Key (Optional).
 
-3. Start the app (`npm run dev`). The client build will read the env var at build time. If you change the key, rebuild the client.
+The application now handles all NYT API calls through the backend, which is more secure and avoids environment variable issues on the frontend.
 
 ## Quickstart
 
@@ -72,7 +72,8 @@ This app is configured for easy deployment on **Replit**.
 2. Create a new Repl and import this GitHub repository.
 3. Replit will detect the configuration or you can set the Run button to `npm run build && npm start`.
 4. In the Replit **Secrets** (Environment Variables) tab, add:
-   - `REACT_APP_NYT_API_KEY`: Your New York Times API Key.
+   - `NYT_API_KEY`: Your New York Times API Key.
+   - `NYT_SECRET_KEY`: Your New York Times Secret Key (Optional).
    - `MONGODB_URI`: Your MongoDB connection string (e.g., from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)).
 5. Click the **Run** button to build and start your app. It will be available at a custom `.replit.app` URL.
 
@@ -102,8 +103,9 @@ Troubleshooting
 - Mongo connection error ECONNREFUSED: Make sure MongoDB is running (see commands above). By default the app connects to mongodb://127.0.0.1:27017/nytreact. You can override this via the MONGODB_URI environment variable.
 - API returns 503 Database unavailable: This means MongoDB is not connected. Start Mongo or set MONGODB_URI to a reachable instance; the API will serve static assets and other routes meanwhile.
 - Client error "No such module: http_parser": Modern Node versions (>=20) removed the legacy `http_parser` native binding required by very old webpack-dev-server versions used by CRA 1.x. To keep dev startup working on modern Node, this project’s start script now builds the React app (npm run build) and serves static assets from Express instead of running the legacy dev server.
-- Something is already running on port 3000: The React development server defaults to port 3000. Stop any process using that port or set a different port before starting the client, e.g. PORT=3003 npm run dev. The provided start script defaults the client to 3003 if PORT is not set.
+- Something is already running on port 3000: The React development server defaults to port 3000. Stop any process using that port or set a different port before starting the client, e.g. PORT=3004 npm run dev. The provided start script defaults the client to 3004 if PORT is not set.
 - Mongoose module errors like "Cannot find module './types/embedded'" or deprecation warnings for `open()` usually indicate mixed or stale installs. Fix by removing top-level node_modules and client/node_modules, then reinstall: `rm -rf node_modules client/node_modules && npm install && (cd client && npm install)`.
+- Dev Server Error (unknown property 'onAfterSetupMiddleware'): This happens if `webpack-dev-server` v5 is installed with `react-scripts` v5. The project is locked to `webpack-dev-server` v4 in `package.json` to fix this. If you see this error, you MUST delete your lock files and reinstall: `rm package-lock.json client/package-lock.json && npm install && (cd client && npm install)`.
 
 Support
 -------

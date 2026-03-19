@@ -30,7 +30,7 @@ class Main extends Component {
   getArticles = () => {
     this.setState({ isLoading: true });
 
-    let query = `${this.state.queryTerm}`;
+    let query = `q=${this.state.queryTerm}`;
     if (this.state.beginDate) {
       const formattedBegin = this.state.beginDate.replace(/-/g, '');
       query = `${query}&begin_date=${formattedBegin}`;
@@ -48,9 +48,12 @@ class Main extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.log('Search Error:', err);
         this.setState({ isLoading: false });
-        this.showToast('Failed to fetch articles. Please try again.', 'error');
+        const errorMsg = err.response && err.response.data && err.response.data.error
+          ? `Error: ${err.response.data.error}`
+          : 'Failed to fetch articles. Please try again.';
+        this.showToast(errorMsg, 'error');
       });
   };
 
