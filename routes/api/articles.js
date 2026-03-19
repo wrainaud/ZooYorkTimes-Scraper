@@ -7,7 +7,12 @@ router
   .get(articlesController.findAll)
   .post(articlesController.create);
 
-// Matches with "/api/articles/:id"
+// Matches with "/api/saved/report"
+router
+  .route('/report')
+  .get(articlesController.generateReport);
+
+// Matches with "/api/saved/:id"
 router
   .route('/:id')
   .delete(articlesController.remove);

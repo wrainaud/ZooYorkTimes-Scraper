@@ -14,6 +14,34 @@ On the frontend, the app uses `ReactJS` for rendering components, `axios` for in
 
 In order to transpile the JSX code, `webpack` and `babel` were utilized. All of the JSX  code in the `/app` folder was transpiled into the `bundle.js` file located in the `/public` folder.
 
+## Report Generation
+You can generate a report of all saved articles by accessing the `/api/saved/report` endpoint.
+
+### CSV Report (default)
+```
+GET /api/saved/report
+```
+Returns a downloadable CSV file with columns: Title, URL, Date.
+
+### JSON Report
+```
+GET /api/saved/report?format=json
+```
+Returns a JSON object with the following structure:
+```json
+{
+  "generatedAt": "2024-01-15T12:00:00.000Z",
+  "totalArticles": 5,
+  "articles": [
+    {
+      "title": "Article Title",
+      "url": "https://example.com/article",
+      "date": "2024-01-15T00:00:00.000Z"
+    }
+  ]
+}
+```
+
 ## New York Times API
 To use the app, set your NYT Article Search API key in an environment file instead of editing source code.
 
