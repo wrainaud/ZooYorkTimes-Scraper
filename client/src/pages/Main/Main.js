@@ -8,6 +8,9 @@ class Main extends Component {
     queryTerm: '',
     beginDate: '',
     endDate: '',
+    author: '',
+    searchType: 'all',
+    isAdvancedSearch: false,
     dbAvailable: null,
     isLoading: false,
     toast: null
@@ -38,6 +41,12 @@ class Main extends Component {
     if (this.state.endDate) {
       const formattedEnd = this.state.endDate.replace(/-/g, '');
       query = `${query}&end_date=${formattedEnd}`;
+    }
+    if (this.state.author && this.state.isAdvancedSearch) {
+      query = `${query}&author=${encodeURIComponent(this.state.author)}`;
+    }
+    if (this.state.searchType !== 'all' && this.state.isAdvancedSearch) {
+      query = `${query}&type=${encodeURIComponent(this.state.searchType)}`;
     }
 
     API.nytSearch(query)
@@ -95,7 +104,7 @@ class Main extends Component {
   };
 
   render() {
-    const { articles, queryTerm, beginDate, endDate, dbAvailable, isLoading, toast } = this.state;
+    const { articles, queryTerm, beginDate, endDate, author, searchType, isAdvancedSearch, dbAvailable, isLoading, toast } = this.state;
 
     return (
       <div className="main-page">
@@ -107,6 +116,23 @@ class Main extends Component {
 
         {/* Search Section */}
         <section className="search-section">
+          <div className="search-mode-toggle">
+            <button
+              type="button"
+              className={`mode-btn ${!isAdvancedSearch ? 'active' : ''}`}
+              onClick={() => this.setState({ isAdvancedSearch: false })}
+            >
+              Simple Search
+            </button>
+            <button
+              type="button"
+              className={`mode-btn ${isAdvancedSearch ? 'active' : ''}`}
+              onClick={() => this.setState({ isAdvancedSearch: true })}
+            >
+              Advanced Search
+            </button>
+          </div>
+
           <form className="search-form" onSubmit={this.handleFormSubmit}>
             <div className="form-group search-input-group">
               <label className="form-label" htmlFor="queryTerm">Search Topic</label>
@@ -127,6 +153,40 @@ class Main extends Component {
                 />
               </div>
             </div>
+
+            {isAdvancedSearch && (
+              <React.Fragment>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="author">Author</label>
+                  <input
+                    type="text"
+                    id="author"
+                    className="form-control"
+                    value={author}
+                    onChange={this.handleInputChange}
+                    name="author"
+                    placeholder="e.g., John Doe"
+                    autoComplete="off"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="searchType">Content Type</label>
+                  <select
+                    id="searchType"
+                    className="form-control"
+                    value={searchType}
+                    onChange={this.handleInputChange}
+                    name="searchType"
+                  >
+                    <option value="all">All Types</option>
+                    <option value="article">Articles</option>
+                    <option value="book">Book Reviews</option>
+                    <option value="multimedia">Multimedia</option>
+                  </select>
+                </div>
+              </React.Fragment>
+            )}
 
             <div className="form-group">
               <label className="form-label" htmlFor="beginDate">From Date</label>

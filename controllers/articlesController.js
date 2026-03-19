@@ -7,7 +7,7 @@ const NYT_API_BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.js
 // Defining methods for the articlesController
 module.exports = {
   nytSearch: function(req, res) {
-    const { q, begin_date, end_date } = req.query;
+    const { q, begin_date, end_date, author, type } = req.query;
     const apiKey = process.env.NYT_API_KEY || process.env.REACT_APP_NYT_API_KEY;
     const secretKey = process.env.NYT_SECRET_KEY;
 
@@ -27,6 +27,25 @@ module.exports = {
 
     if (begin_date) params.begin_date = begin_date;
     if (end_date) params.end_date = end_date;
+
+    // Build filter query (fq) for advanced search
+    const filters = [];
+    if (author) {
+      filters.push(`person:("${author}")`);
+    }
+    if (type && type !== 'all') {
+      // Map our simple type names to NYT's type_of_material values
+      const typeMap = {
+        'article': 'News',
+        'book': 'Review',
+        'multimedia': 'Multimedia'
+      };
+      const nytType = typeMap[type] || type;
+      filters.push(`type_of_material:("${nytType}")`);
+    }
+    if (filters.length > 0) {
+      params.fq = filters.join(' AND ');
+    }
 
     axios.get(NYT_API_BASE_URL, { params, headers })
       .then(response => res.json(response.data))
