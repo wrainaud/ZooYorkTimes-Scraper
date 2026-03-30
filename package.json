@@ -50,7 +50,7 @@
     "webpack-dev-server": "^4.15.1",
     "cross-spawn": "^7.0.6",
     "micromatch": "^4.0.8",
-    "path-to-regexp": "^0.1.12",
+    "path-to-regexp": "^0.1.13",
     "cookie": "^0.7.2",
     "send": "^0.19.2",
     "serve-static": "^1.16.3"
@@ -71,7 +71,7 @@
     "webpack-dev-server": "^4.15.1",
     "cross-spawn": "^7.0.6",
     "micromatch": "^4.0.8",
-    "path-to-regexp": "^0.1.12",
+    "path-to-regexp": "^0.1.13",
     "cookie": "^0.7.2",
     "send": "^0.19.2",
     "serve-static": "^1.16.3"
