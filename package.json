@@ -20,7 +20,7 @@
   "author": "Created by William Rainaud - email: wrainaud@outlook.com - web: http://wrainaud.com",
   "license": "AGPL-3.0-only",
   "devDependencies": {
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.3",
     "nodemon": "^3.1.14"
   },
   "dependencies": {
